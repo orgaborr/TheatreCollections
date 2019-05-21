@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.*;
 
 public class Theatre {
 	private final String theatreName;
@@ -31,8 +31,49 @@ public class Theatre {
 		
 		if(requestedSeat == null) { //if the loop above doesn't find the seat, it remains null
 			System.out.println("There is no seat " + seatNumber);
+			return false;
 		}
 		
 		return requestedSeat.reserve();
+	}
+	
+	// for testing
+	public void getSeats() {
+		for(Seat seat : seats) {
+			System.out.println(seat.getSeatNumber());
+		}
+	}
+	
+	private class Seat {
+		private final String seatNumber;
+		private boolean reserved = false;
+
+		public Seat(String seatNumber) {
+			this.seatNumber = seatNumber;
+		}
+		
+		public boolean reserve() {
+			if(!this.reserved) {
+				this.reserved = true;
+				System.out.println("Seat " + seatNumber + " reserved");
+				return true;
+			}
+				return false;
+		}
+		
+		public boolean cancel() {
+			if(this.reserved) {
+				this.reserved = false;
+				System.out.println("Reservation of seat " + seatNumber + " cancel" );
+				return true;
+			}
+			return false;
+		}
+
+		public String getSeatNumber() {
+			return seatNumber;
+		}
+		
+		
 	}
 }
