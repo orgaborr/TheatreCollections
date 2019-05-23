@@ -1,10 +1,8 @@
 import java.util.*;
 
-import Theatre.Seat;
-
 public class Theatre {
 	private final String theatreName;
-	private Collection<Seat> seats = new ArrayList<>();
+	private List<Seat> seats = new ArrayList<>();
 	
 	public Theatre(String theatreName, int numRows, int seatsPerRow) {
 		this.theatreName = theatreName;
@@ -23,22 +21,30 @@ public class Theatre {
 	}
 	
 	public boolean reserveSeat(String seatNumber) {
-		Seat requestedSeat = null; //variable outside of the loop
-		for(Seat seat : seats) { //goes through the seats in seats array list
-			System.out.print(".");
-			if(seat.getSeatNumber().equals(seatNumber)) { //there is a match, it stops to reserve the seat
-				requestedSeat = seat;
-				break;
-			}
-		}
-		
-		if(requestedSeat == null) { //if the loop above doesn't find the seat, it remains null
-			System.out.println("There is no seat " + seatNumber);
-			return false;
-		}
-		
-		return requestedSeat.reserve();
+		Seat requestedSeat = new Seat(seatNumber);
+		int foundSeat = Collections.binarySearch(seats, requestedSeat, null);
+		if(foundSeat >= 0) {
+			return seats.get(foundSeat).reserve();
+		} 
+		System.out.println("There is no seat " + seatNumber);
+		return false;
 	}
+		
+//		for(Seat seat : seats) { //goes through the seats in seats array list
+//			System.out.print(".");
+//			if(seat.getSeatNumber().equals(seatNumber)) { //there is a match, it stops to reserve the seat
+//				requestedSeat = seat;
+//				break;
+//			}
+//		}
+//		
+//		if(requestedSeat == null) { //if the loop above doesn't find the seat, it remains null
+//			System.out.println("There is no seat " + seatNumber);
+//			return false;
+//		}
+//		
+//		return requestedSeat.reserve();
+//	}
 	
 	// for testing
 	public void getSeats() {
