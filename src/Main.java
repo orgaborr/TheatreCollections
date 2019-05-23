@@ -6,7 +6,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		Theatre theatre = new Theatre("Szkéné", 8, 12);
-		List<Theatre.Seat> seatCopy = new ArrayList<>(theatre.seats);
+		List<Theatre.Seat> seatCopy = new ArrayList<>(theatre.seats); //shallow copy
 //		printList(theatre.seats);
 		printList(seatCopy);
 		
@@ -27,6 +27,10 @@ public class Main {
 		Theatre.Seat maxSeat = Collections.max(seatCopy);
 		System.out.println("Min seat number is " + minSeat.getSeatNumber());
 		System.out.println("Max seat number is " + maxSeat.getSeatNumber());
+		
+		sortList(seatCopy);
+		System.out.println("Printing sorted seatCopy");
+		printList(seatCopy);
 	}
 	
 	public static void printList(List<Theatre.Seat> list) { //shallow copy, refers to the same objects
