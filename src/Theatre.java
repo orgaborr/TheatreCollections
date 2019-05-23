@@ -1,8 +1,10 @@
 import java.util.*;
 
+import Theatre.Seat;
+
 public class Theatre {
 	private final String theatreName;
-	private Collection<Seat> seats = new LinkedHashSet<>();
+	private Collection<Seat> seats = new ArrayList<>();
 	
 	public Theatre(String theatreName, int numRows, int seatsPerRow) {
 		this.theatreName = theatreName;
@@ -23,6 +25,7 @@ public class Theatre {
 	public boolean reserveSeat(String seatNumber) {
 		Seat requestedSeat = null; //variable outside of the loop
 		for(Seat seat : seats) { //goes through the seats in seats array list
+			System.out.print(".");
 			if(seat.getSeatNumber().equals(seatNumber)) { //there is a match, it stops to reserve the seat
 				requestedSeat = seat;
 				break;
@@ -44,7 +47,7 @@ public class Theatre {
 		}
 	}
 	
-	private class Seat {
+	private class Seat implements Comparable<Seat>{ //inner class
 		private final String seatNumber;
 		private boolean reserved = false;
 
@@ -52,6 +55,11 @@ public class Theatre {
 			this.seatNumber = seatNumber;
 		}
 		
+		@Override
+		public int compareTo(Seat seat) {
+			return this.seatNumber.compareToIgnoreCase(seat.getSeatNumber());
+		}
+
 		public boolean reserve() {
 			if(!this.reserved) {
 				this.reserved = true;
