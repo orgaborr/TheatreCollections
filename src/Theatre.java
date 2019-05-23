@@ -21,32 +21,26 @@ public class Theatre {
 	}
 	
 	public boolean reserveSeat(String seatNumber) {
-		Seat requestedSeat = new Seat(seatNumber);
-		int foundSeat = Collections.binarySearch(seats, requestedSeat, null); //seats is the array list searched,
-																			  //requestedSeat in the element we search for,
-																			  //null is the comparator method used for sorting
-		if(foundSeat >= 0) {
-			return seats.get(foundSeat).reserve();
-		} 
+		int low = 0;
+		int high = seats.size()-1;
+		
+		while(low <=high) {
+			System.out.print(".");
+			int mid = (low + high) / 2;
+			Seat midVal = seats.get(mid);
+			int cmp = midVal.getSeatNumber().compareTo(seatNumber);
+			
+			if(cmp < 0) {
+				low = mid+1;
+			} else if(cmp > 0) {
+				high = mid-1;
+			} else {
+				return seats.get(mid).reserve();
+			}
+		}
 		System.out.println("There is no seat " + seatNumber);
 		return false;
 	}
-		
-//		for(Seat seat : seats) { //goes through the seats in seats array list
-//			System.out.print(".");
-//			if(seat.getSeatNumber().equals(seatNumber)) { //there is a match, it stops to reserve the seat
-//				requestedSeat = seat;
-//				break;
-//			}
-//		}
-//		
-//		if(requestedSeat == null) { //if the loop above doesn't find the seat, it remains null
-//			System.out.println("There is no seat " + seatNumber);
-//			return false;
-//		}
-//		
-//		return requestedSeat.reserve();
-//	}
 	
 	// for testing
 	public void getSeats() {
