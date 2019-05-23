@@ -22,7 +22,9 @@ public class Theatre {
 	
 	public boolean reserveSeat(String seatNumber) {
 		Seat requestedSeat = new Seat(seatNumber);
-		int foundSeat = Collections.binarySearch(seats, requestedSeat, null);
+		int foundSeat = Collections.binarySearch(seats, requestedSeat, null); //seats is the array list searched,
+																			  //requestedSeat in the element we search for,
+																			  //null is the comparator method used for sorting
 		if(foundSeat >= 0) {
 			return seats.get(foundSeat).reserve();
 		} 
